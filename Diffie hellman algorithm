@@ -1,0 +1,23 @@
+class HelloWorld {
+    public static int power(int a, int b, int p){
+        if(b==1)
+        return a;
+        else
+        return (((int)Math.pow(a,b))%p);
+    }
+    public static void main(String[] args) {
+        int p=17, g=3, a=4, b=3;
+        int A = power(g,a,p);
+        int B = power(g,b,p);
+        int K1 = power(B,a,p);
+        int K2 = power(A,b,p);
+        if(K1==K2){
+            System.out.println("Secret key for A: "+K1);
+            System.out.println("Secret key for B: "+K2);
+            System.out.println("Symmetric key");
+        }
+        else{
+            System.out.println("Asymmetric key");
+        }
+    }
+}
