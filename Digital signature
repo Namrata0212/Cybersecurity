@@ -1,0 +1,57 @@
+class HelloWorld {
+    public static int[] hash(String M){
+        int res[]=new int[M.length()];
+        for(int i=0;i<M.length();i++){
+            int ch=(int)M.charAt(i);
+            res[i]=(ch%23);
+        }
+        return res;
+    }
+    public static int[] encrypt(int[] md){
+        int cip[]=new int[md.length];
+        for(int i=0;i<md.length;i++){
+            int ch=md[i];
+            cip[i]=(ch+20)%128;
+        }
+        return cip;
+    }
+    public static int[] decrypt(int[] cipher){
+        int cip[]=new int[cipher.length];
+        for(int i=0;i<cipher.length;i++){
+            int ch=cipher[i];
+            cip[i]=((ch-20)%128);
+        }
+        return cip;
+    }
+    public static void main(String[] args) {
+        String M="Hello25";
+        int md[]=hash(M);
+        System.out.println("Message digest: ");
+        for(int i=0;i<md.length;i++){
+            System.out.print(md[i]+"");
+        }
+            System.out.println();
+            int digi[]=encrypt(md);
+            System.out.println("Digital signature: ");
+            String d_s="";
+            for(int i=0;i<md.length;i++){
+                int dig=digi[i];
+                d_s+=(char)(dig+48);
+            }
+            System.out.println(d_s);
+            System.out.println("Message sent by the sender: "+d_s+"+"+M);
+            System.out.println("After decrypting: ");
+            int dec[]=decrypt(digi);
+            for(int j=0;j<dec.length;j++){
+                int d=dec[j];
+                System.out.print(d+"");
+            }
+            boolean res=true;
+            for(int i=0;i<dec.length;i++){
+                if(dec[i]!=md[i])
+                res=false;
+            }
+            System.out.println();
+            System.out.println("Is the sender authentic? "+res);
+        }
+}
