@@ -1,0 +1,51 @@
+def toBinary(input):
+    binary=[]
+    for c in input:
+        val=ord(c)
+        binary_val=format(val,'08b')
+        binary.append(binary_val)
+    return (' '.join(binary))
+
+def initialPerm(binary_converted):
+    return binary_converted[::-1]
+
+def divide_left(initial_reverse):
+    lpt=initial_reverse[:8]
+    return lpt
+    
+def divide_right(initial_reverse):
+    rpt=initial_reverse[9:]
+    return rpt
+    
+def convert(right):
+    bits=list(right)
+    b1=bits[:4]
+    b2=bits[4:]
+    b1.append(b2[0])
+    b2.insert(0,b1[-1])
+    b1.insert(0,b2[-1])
+    b2.append(b1[0])
+    manipulated_bits=''.join(b1+b2)
+    return manipulated_bits
+    
+def xor_rpt_key(conversion_12,key):
+    num1=int(conversion_12,2)
+    num2=int(key,2)
+    result=num1 ^ num2
+    result_binary=format(result,'012b')
+    return result_binary
+input='Hi'
+key='101011010110'
+s_box={['1111','1110','1101','1100','1011'.'1010','1001','1000','0111','0110','0101','0100','0011','0010','0001','0000'], ['1010','1011','1000','1001','1110','1111','1100','1101','0110','0011','0000','0001','0110','0111','0100','0101'],['0101','0100','0111','0110','0001','0000','0011','0010','1101','1100','1111','1110','1001','1000','1011','1010'],['0000','0001','0010','0011','0100','0101','0111','1000','1001','1010','1011','1100','1101','1110','1111']}
+binary_converted=toBinary(input)
+print(binary_converted)
+initial_reverse=initialPerm(binary_converted)
+print(initial_reverse)
+left=divide_left(initial_reverse)
+print(left)
+right=divide_right(initial_reverse)
+print(right)
+conversion_12=convert(right)
+print(conversion_12)
+xor_key=xor_rpt_key(conversion_12,key)
+print(xor_key)
